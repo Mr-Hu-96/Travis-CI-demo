@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - 16
+
+# 缓存 node_modules 以加快构建速度
+cache:
+  directories:
+    - node_modules
+
+# 仅在推送到主分支时触发部署
+branches:
+  only:
+    - master
+
+# 安装依赖
+install:
+  - npm install
+
+# 构建项目
+script:
+  - npm run build
+
+# 部署到 GitHub Pages
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # 设置在 Travis CI 环境变量中的 GitHub Token
+  local-dir: dist
+  on:
+    branch: master
